@@ -1,0 +1,36 @@
+TARGET_ISA=ARM
+
+GEM5_HOME=/cnm-framework/pim-cores/cnmlib
+$(info   GEM5_HOME is $(GEM5_HOME))
+
+CXX=g++
+
+CFLAGS=-I$(GEM5_HOME)/include
+
+LDFLAGS=-L$(GEM5_HOME)/util/m5 -lm5 -lpthread
+
+all: cnm_va cnm_dp cnm_mm cnm_mvm cnm_conv cnm_multich cnm_parallel
+
+cnm_va:
+	$(CXX) -std=c++11 -o cnm_va -O3 main.cpp $(CFLAGS) $(LDFLAGS) -Wall -DVA -DDEBUG 
+
+cnm_dp:
+	$(CXX) -std=c++11 -o cnm_dp -O3 main.cpp $(CFLAGS) $(LDFLAGS) -Wall -DDP -DDEBUG
+
+cnm_mm:
+	$(CXX) -std=c++11 -o cnm_mm -O3 main.cpp $(CFLAGS) $(LDFLAGS) -Wall -DMM -DDEBUG
+
+cnm_mvm:
+	$(CXX) -std=c++11 -o cnm_mvm -O3 main.cpp $(CFLAGS) $(LDFLAGS) -Wall -DMVM -DDEBUG
+
+cnm_conv:
+	$(CXX) -std=c++11 -o cnm_conv -O3 main.cpp $(CFLAGS) $(LDFLAGS) -Wall -DCONV #-DDEBUG
+
+cnm_multich:
+	$(CXX) -std=c++11 -o cnm_multich -O3 main.cpp $(CFLAGS) $(LDFLAGS) -Wall -DMULTICH -DDEBUG
+
+cnm_parallel:
+	$(CXX) -std=c++11 -o cnm_parallel -O3 main.cpp $(CFLAGS) $(LDFLAGS) -Wall -DPARALLEL -DDEBUG
+
+clean:
+	rm -f $(OBJECTS)
