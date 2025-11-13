@@ -21,7 +21,9 @@ The purpose of the framework is described in the following paper:
 ## Project structure
 
 - 📁 [**ANEMOS**:](./ANEMOS/) Configurable NMC Architecture Template: This is an extended version of the open-source repository [ANEMOS](https://github.com/gem5-X/ANEMOS/tree/main) to support Full-System (FS) Simuation.
+
         For performing Area, Energy and NMC-only cycle-accurate simulations follow the original repository on the above link. 
+        
         Our Additions/Changes:
             - Updated subdir.mk files in [build](./ANEMOS/build) folder
             - New/Updated src and testbench files to interface with FS: 
