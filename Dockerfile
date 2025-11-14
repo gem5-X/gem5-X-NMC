@@ -17,16 +17,42 @@ RUN rm -f /etc/apt/apt.conf.d/docker-clean
 # Install the APT packages
 RUN --mount=type=cache,target=/var/cache/apt \
 	apt-get update && \
-	apt-get install -y build-essential \
-        device-tree-compiler cmake wget git vim g++-aarch64-linux-gnu
+	DEBIAN_FRONTEND=noninteractive apt-get install -y \
+        vim python python-dev python-six gcc g++ software-properties-common \
+        gcc-arm-linux-gnueabihf device-tree-compiler zlib1g-dev m4 \
+        libprotobuf-dev libgoogle-perftools-dev libprotoc-dev protobuf-compiler \
+        screen gdb python-pip libprotobuf-c1 libprotobuf-c-dev python-protobuf \
+        scons swig protobuf-c-compiler libboost-all-dev diod libxerces-c-dev \
+        automake autoconf perl flex bison byacc libhdf5-dev libelf-dev \
+        cmake-curses-gui
 
-# Copy the project files to the container
-COPY . /CrossLayerNMC
+# Add universe repo
+RUN add-apt-repository universe && \
+    apt-get update
 
-# Build the m5 library
-# RUN make -C cnm-framework/pim-cores/cnmlib/util/m5 --file=Makefile.aarch64
-WORKDIR /CrossLayerNMC/gem5-x-nmc/util/m5
-RUN make --file=Makefile.aarch64
+# Python
+RUN pip install protobuf		
+
+# Fix asm include symlink (only if needed)
+RUN ln -s /usr/include/asm-generic /usr/include/asm || true
+
+# # Copy the project files to the container
+# COPY . /CrossLayerNMC
+
+# Create the working directory where the host directory will be mounted
+RUN mkdir -p /CrossLayerNMC
+
+# Environment variables as in Singularity
+ENV CROSSLAYER_FW="/CrossLayerNMC"
+ENV SYSTEMC_HOME="$CROSSLAYER_FW/systemc" 
+ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$SYSTEMC_HOME/lib/"
+
+
+# @TODO Build m5 in the scripts (once initially)
+# # Build the m5 library
+# # RUN make -C cnm-framework/pim-cores/cnmlib/util/m5 --file=Makefile.aarch64
+# WORKDIR /CrossLayerNMC/gem5-x-nmc/util/m5
+# RUN make --file=Makefile.aarch64
 
 # Set working directory
 WORKDIR /CrossLayerNMC

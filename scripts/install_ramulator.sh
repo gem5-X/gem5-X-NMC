@@ -2,7 +2,7 @@
 
 cd $CROSSLAYER_FW
 
-# git clone https://github.com/CMU-SAFARI/ramulator.git
+git clone https://github.com/CMU-SAFARI/ramulator.git
 
 # Update/Patch ramulator files
 cp ramulator_files/src/* ramulator/src/

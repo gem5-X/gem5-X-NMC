@@ -2,12 +2,12 @@
 
 # Needs to be used in the root directory of the project with source scripts/export_paths.sh
 export CROSSLAYER_FW=$PWD
-export SOFTWARELIB=$CROSSLAYER_FW/softwareStack
 export ANEMOS=$CROSSLAYER_FW/ANEMOS
+export SOFTWARELIB=$CROSSLAYER_FW/softwareStack
 export GEM5_X_NMC=$CROSSLAYER_FW/gem5-x-nmc
-export RAMULATOR_DIR=$ANEMOS/ramulator  #@TODO where do I install ramulator 
+export RAMULATOR_DIR=$CROSSLAYER_FW/ramulator  
+export SYSTEMC_HOME=$CROSSLAYER_FW/systemc 
 
-# export SYSTEMC_HOME=$SIDEDRAM_HOME/systemc #@TODO DO I NEED THIS?
 # export INPUTS_DIR=$SIDEDRAM_HOME/inputs #@TODO DO I NEED THIS?
 # export LD_LIBRARY_PATH=$SYSTEMC_HOME/lib:$LD_LIBRARY_PATH #@TODO DO I NEED THIS?
 

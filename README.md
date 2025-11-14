@@ -51,7 +51,22 @@ For performing Area, Energy and NMC-only cycle-accurate simulations follow the o
 
 - 📄 Singularity Image: Container used for building and running NMC models and gem5-x-nmc.
 
-## Execution
+## Flow
 
+### 1. Setting up the framework
+
+To firstly set up the framework, set the paths of the folders and install the needed libraries, run from the root folder of the repository:
+
+```
+source scripts/setUpFramework.sh
+```
+
+### 2. Generating NMC Architecture Models (executables)
+
+### 3. Building gem5-x-nmc with NMC integrated
+
+### 4. Building applications 
+
+### 5. Running simulations with the generated applications
 
 
