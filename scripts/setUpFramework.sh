@@ -11,3 +11,8 @@ fi
 if [ ! -f "$RAMULATOR_DIR/ramulator" ]; then
     ./scripts/install_ramulator.sh
 fi
+
+# Clone Eigen (Branch we used)
+if [ ! -f "$SOFTWARELIB/eigen" ]; then
+    ./scripts/install_eigen.sh
+fi

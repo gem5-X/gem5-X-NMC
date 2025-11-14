@@ -1,8 +1,8 @@
 To use Ramulator in gem5 simulations
 
-1. Download Ramulator
+1. Download Ramulator (**Skip to 2:Already done with the install_ramulator.sh**)
     1.1 Go to ext/ramulator (this directory)
-    1.2 Clone Ramulator: git clone git://github.com/CMU-SAFARI/ramulator.git
+    1.2 Clone Ramulator: git clone git@github.com:CMU-SAFARI/ramulator.git
 
 2. Compile gem5
 
