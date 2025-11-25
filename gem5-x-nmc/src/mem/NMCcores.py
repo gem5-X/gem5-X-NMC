@@ -4,5 +4,5 @@ from m5.SimObject import SimObject
 class NMCcores(SimObject):
     type = 'NMCcores'
     cxx_header = "mem/nmccores.hh"
-    cxx_class = "nmccores" 
+    cxx_class = "NMCcores" 
 

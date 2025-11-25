@@ -62,7 +62,7 @@ void cnm_driver::printSharedMem (FileLine* fl, uint8_t* lastCmdPtr) {
 void cnm_driver::driver_thread() {
 
     int i, j, k, DQCycle[NUM_CHANNEL];
-    uint curCycle;
+    uint64_t curCycle;
 #if INSTR_CLK > 1
     int instrCycle[NUM_CHANNEL];
 #endif

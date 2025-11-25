@@ -2,7 +2,7 @@
 #define __NMCCORES_HH__
 
 #include "sim/sim_object.hh"
-#include "params/nmccores.hh"
+#include "params/NMCcores.hh"
 #include "mem/packet.hh"
 #include "base/types.hh"
 #include <string>
@@ -169,7 +169,7 @@ class NMCcores : public SimObject
             process();
         };
 
-        NMCcoresExitCallback *NMCcoresExitCallback;
+        NMCcoresExitCallback *nmccoresExitCallback;
 };
 
 

@@ -77,8 +77,8 @@ NMCcores::NMCcores(const Params *params):
     // TODO automate this
     if (pid == 0) {
         std::string scPath = simout.resolve("SystemC" + gem5_pid_string + ".results");
-        execl("/home/kodra/shares/local/scrap/gem5-x-cnm/ext/NMCcores/pimcoresDRAMs/pimcores-HBM-NEW", 
-              "/home/kodra/shares/local/scrap/gem5-x-cnm/ext/NMCcores/pimcoresDRAMs/pimcores-HBM-NEW", scPath.c_str(), gem5_pid_string.c_str(),  nullptr);
+        execl("/CrossLayerNMC/gem5-x-nmc/ext/NMCcores/pim-cores-HBM-NEW", 
+              "/CrossLayerNMC/gem5-x-nmc/ext/NMCcores/pim-cores-HBM-NEW", scPath.c_str(), gem5_pid_string.c_str(),  nullptr);
         std::cout << "error with execl" << std::endl;
     } else {
         std::cout << "==============================================================================================================" << std::endl;
@@ -88,13 +88,13 @@ NMCcores::NMCcores(const Params *params):
 
     std::cout << "RF_START " << std::hex << RF_START << " MODE_CHANGE_START " << MODE_CHANGE_START << " MODE_CHANGE_END " << MODE_CHANGE_END << std::endl;
 
-    NMCcoresExitCallback = new NMCcoresExitCallback(this);
-    registerExitCallback(NMCcoresExitCallback);
+    nmccoresExitCallback = new NMCcoresExitCallback(this);
+    registerExitCallback(nmccoresExitCallback);
 }
 
 NMCcores::~NMCcores()
 {
-    delete NMCcoresExitCallback;
+    delete nmccoresExitCallback;
 }
 
 void NMCcores::rcvCnmWriteData() {

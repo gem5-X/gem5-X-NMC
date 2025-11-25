@@ -71,7 +71,7 @@ SimpleMemory::init()
 // TODO idk if needed, dont remember
     else 
     fatal("Ramulator port not connected\n");
-}s
+}
 
 Tick
 SimpleMemory::recvAtomic(PacketPtr pkt)
