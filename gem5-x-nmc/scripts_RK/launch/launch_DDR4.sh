@@ -19,8 +19,6 @@ output_dir=gem5_outputs
 ./build/ARM/gem5.fast \
 --remote-gdb-port=0 \
 -d /CrossLayerNMC/gem5-x-nmc/gem5_outputs \
---stats-file="${kernel_name}_stats.txt" \
---dump-config="${kernel_name}_config.ini" \
 configs/example/fs.py \
 --cpu-clock=2GHz \
 --kernel=vmlinux_wa \
@@ -38,12 +36,12 @@ configs/example/fs.py \
 --mem-ranks=4 \
 --mem-size=4GB \
 --sys-clock=1600MHz \
---cpu-type=AtomicSimpleCPU\ 
+--cpu-type=MinorCPU \
 --workload-automation-vio=/CrossLayerNMC/gem5-x-nmc \
 --nmc \
 --nmc_mem_type=Ramulator \
 --ramulator-config=/CrossLayerNMC/gem5-x-nmc/ext/ramulator/Ramulator/configs/DDR4_AB-config.cfg \
---nmc_mem_size=16GB #\
-# -r 1
+--nmc_mem_size=16GB \
+-r 1
 
 # singularity instance stop "$kernel_name"
