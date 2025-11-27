@@ -3,7 +3,7 @@
 kernel_name=$1
 echo "$kernel_name launching on gem5"
 
-cd /CrossLayerNMC/gem5-x-nmc/
+cd /home/kodra/CrossLayerNMC/gem5-x-nmc/
 # apptainer instance start /home/kodra/srv11.sif "$kernel_name"
 
 # output_dir="/CrossLayerNMC/gem5-x-nmc/$kernel_name"

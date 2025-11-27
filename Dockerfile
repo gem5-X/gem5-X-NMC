@@ -1,10 +1,19 @@
 FROM ubuntu:16.04
 
+ARG UNAME=kodra
+ARG USER_ID=255285
+ARG GROUP_ID=10433
+
+
 # Define default shell
 SHELL ["/bin/bash", "-c"] 
 
 # Environment variables
-# ENV SYSTEMC_HOME=/usr/local/systemc
+ENV SYSTEMC_HOME=$SYSTEMC_HOME:/home/kodra/shares/local/scrap/include/
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/kodra/shares/local/scrap/lib/
+RUN ldconfig
+# echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/kodra/shares/local/scrap/lib/' >>$SINGULARITY_ENVIRONMENT
+# echo 'export SYSTEMC_HOME=$SYSTEMC_HOME:/home/kodra/shares/local/scrap/include/' >>$SINGULARITY_ENVIRONMENT
 
 # Optimize the mirrors for a fast APT image
 RUN sed -i 's/htt[p|ps]:\/\/archive.ubuntu.com\/ubuntu\//mirror:\/\/mirrors.ubuntu.com\/mirrors.txt/g' /etc/apt/sources.list
@@ -40,7 +49,8 @@ RUN ln -s /usr/include/asm-generic /usr/include/asm || true
 # COPY . /CrossLayerNMC
 
 # Create the working directory where the host directory will be mounted
-RUN mkdir -p /CrossLayerNMC
+# RUN mkdir -p /CrossLayerNMC
+# RUN chmod +0777 /CrossLayerNMC 
 
 # Environment variables as in Singularity
 ENV CROSSLAYER_FW="/CrossLayerNMC"
@@ -54,5 +64,10 @@ ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$SYSTEMC_HOME/lib/"
 # WORKDIR /CrossLayerNMC/gem5-x-nmc/util/m5
 # RUN make --file=Makefile.aarch64
 
+RUN groupadd -g $GROUP_ID -o $UNAME
+RUN useradd -m -u $USER_ID -g $GROUP_ID -o -s /bin/bash $UNAME
+USER $UNAME
+
+
 # Set working directory
-WORKDIR /CrossLayerNMC
+WORKDIR /home/$UNAME
