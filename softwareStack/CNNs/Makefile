@@ -7,7 +7,7 @@ CCFLAGS     = -I$(GEM5_HOME)/include
 LDFLAGS     = -L$(GEM5_HOME)/util/m5 -lm5 -lpthread
 
 # Dirs to include
-INC         = -I ./ -I ../eigen -I ./models -I ../tinytensorlib/ -I ../../ANEMOS/cnmlib/  
+INC         = -I ./ -I ../eigen -I ./models -I ../tinytensorlib/ -I ../NMClib  
 
 SUFFIX ?= exp
 

@@ -39,7 +39,7 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := pim-cores
+BUILD_ARTIFACT_NAME := nmc-cores
 BUILD_ARTIFACT_EXTENSION :=
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
@@ -50,19 +50,20 @@ BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ART
 all: main-build
 
 # Main-build Target
-main-build: pim-cores
+main-build: nmc-cores
 
 # Tool invocations
-pim-cores: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
+# @TODO path to lib of systemC change
+nmc-cores: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++ -L/opt/systemc/lib -o "pim-cores" $(OBJS) $(USER_OBJS) $(LIBS) -lsystemc
+	g++ -L/$(SYSTEMC_HOME)/lib -o "nmc-cores" $(OBJS) $(USER_OBJS) $(LIBS) -lsystemc -lpthread -lrt
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) pim-cores
+	-$(RM) nmc-cores
 	-@echo ' '
 
 .PHONY: all clean dependents main-build

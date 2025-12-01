@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Needs to be used in the root directory of the project with source scripts/export_paths.sh
-export CROSSLAYER_FW=$PWD
+export CROSSLAYER_FW=/CrossLayerNMC
 export ANEMOS=$CROSSLAYER_FW/ANEMOS
 export SOFTWARELIB=$CROSSLAYER_FW/softwareStack
 export GEM5_X_NMC=$CROSSLAYER_FW/gem5-x-nmc

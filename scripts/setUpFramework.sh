@@ -14,12 +14,14 @@ fi
 
 # Install ramulator only if not installed
 if [ ! -f "$RAMULATOR_DIR" ]; then
-    ./scripts/install_ramulator.sh
+    # ./scripts/install_ramulator.sh
+    echo "./scripts/install_ramulator.sh"
 fi
 
 # Clone Eigen (Branch we used)
 if [ ! -f "$SOFTWARELIB/eigen" ]; then
-    ./scripts/install_eigen.sh
+    # ./scripts/install_eigen.sh
+    echo "./scripts/install_eigen.sh"
 fi
 
 

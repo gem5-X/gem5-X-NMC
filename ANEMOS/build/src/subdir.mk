@@ -4,6 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../src/cnm_device.cpp \
 ../src/control_unit.cpp \
 ../src/crf.cpp \
 ../src/fp_adder.cpp \
@@ -18,6 +19,7 @@ CPP_SRCS += \
 ../src/srf.cpp 
 
 CPP_DEPS += \
+./src/cnm_device.d \
 ./src/control_unit.d \
 ./src/crf.d \
 ./src/fp_adder.d \
@@ -32,6 +34,7 @@ CPP_DEPS += \
 ./src/srf.d 
 
 OBJS += \
+./src/cnm_device.o \
 ./src/control_unit.o \
 ./src/crf.o \
 ./src/fp_adder.o \
@@ -47,10 +50,11 @@ OBJS += \
 
 
 # Each subdirectory must supply rules for building sources it contributes
+# @TODO set path to include
 src/%.o: ../src/%.cpp src/subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -I/opt/systemc/include -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	g++ -I/$(SYSTEMC_HOME)/include -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
@@ -58,7 +62,7 @@ src/%.o: ../src/%.cpp src/subdir.mk
 clean: clean-src
 
 clean-src:
-	-$(RM) ./src/control_unit.d ./src/control_unit.o ./src/crf.d ./src/crf.o ./src/fp_adder.d ./src/fp_adder.o ./src/fp_multiplier.d ./src/fp_multiplier.o ./src/fpu.d ./src/fpu.o ./src/grf.d ./src/grf.o ./src/imc_core.d ./src/imc_core.o ./src/imc_pch.d ./src/imc_pch.o ./src/instr_decoder.d ./src/instr_decoder.o ./src/interface_unit.d ./src/interface_unit.o ./src/pc_unit.d ./src/pc_unit.o ./src/srf.d ./src/srf.o
+	-$(RM) ./src/cnm_device.d ./src/cnm_device.o ./src/control_unit.d ./src/control_unit.o ./src/crf.d ./src/crf.o ./src/fp_adder.d ./src/fp_adder.o ./src/fp_multiplier.d ./src/fp_multiplier.o ./src/fpu.d ./src/fpu.o ./src/grf.d ./src/grf.o ./src/imc_core.d ./src/imc_core.o ./src/imc_pch.d ./src/imc_pch.o ./src/instr_decoder.d ./src/instr_decoder.o ./src/interface_unit.d ./src/interface_unit.o ./src/pc_unit.d ./src/pc_unit.o ./src/srf.d ./src/srf.o
 
 .PHONY: clean-src
 
