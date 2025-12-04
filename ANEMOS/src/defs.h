@@ -33,7 +33,7 @@
 // 2: GDDR5_AB
 // 3: LPDDR4_AB
 
-#define DRAM 0
+#define DRAM    0
 
 #if (DRAM == 0)
     #define CLK_PERIOD 3333

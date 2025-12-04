@@ -10,6 +10,7 @@ ENV SOFTWARELIB=$CROSSLAYER_FW/softwareStack
 ENV GEM5_X_NMC=$CROSSLAYER_FW/gem5-x-nmc
 ENV RAMULATOR_DIR=$CROSSLAYER_FW/ramulator  
 ENV SYSTEMC_HOME=$CROSSLAYER_FW/systemc 
+ENV CPP_APPS=$SOFTWARELIB/Applications
 
 # Optimize the mirrors for a fast APT image
 RUN sed -i 's/htt[p|ps]:\/\/archive.ubuntu.com\/ubuntu\//mirror:\/\/mirrors.ubuntu.com\/mirrors.txt/g' /etc/apt/sources.list
@@ -45,11 +46,11 @@ RUN /CrossLayerNMC/scripts/install_systemC.sh
 ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${SYSTEMC_HOME}/lib"
 # ENV SYSTEMC_HOME="${SYSTEMC_HOME}:${SYSTEMC_HOME}/include"
 
-
-
-
 RUN chmod +x /CrossLayerNMC/scripts/install_ramulator.sh
 RUN /CrossLayerNMC/scripts/install_ramulator.sh
+
+# RUN chmod +x /CrossLayerNMC/scripts/build_gem5.sh
+# RUN /CrossLayerNMC/scripts/build_gem5.sh
 
 # Set working directory
 WORKDIR /CrossLayerNMC

@@ -77,8 +77,8 @@ NMCcores::NMCcores(const Params *params):
     // TODO automate this
     if (pid == 0) {
         std::string scPath = simout.resolve("SystemC" + gem5_pid_string + ".results");
-        execl("/CrossLayerNMC/gem5-x-nmc/ext/NMCcores/pim-cores-HBM-NEW", 
-              "/CrossLayerNMC/gem5-x-nmc/ext/NMCcores/pim-cores-HBM-NEW", scPath.c_str(), gem5_pid_string.c_str(),  nullptr);
+        execl("/CrossLayerNMC/gem5-x-nmc/ext/NMCcors/nmc-cores", 
+              "/CrossLayerNMC/gem5-x-nmc/ext/NMCcors/nmc-cores", scPath.c_str(), gem5_pid_string.c_str(),  nullptr);
         std::cout << "error with execl" << std::endl;
     } else {
         std::cout << "==============================================================================================================" << std::endl;
