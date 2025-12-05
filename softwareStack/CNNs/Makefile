@@ -20,11 +20,9 @@ TARGETS_LIST = AlexNet VGG16CIFAR100 SSDResNet34 LeNet5MNIST
 # Compile
 $(TARGETS_LIST):
 	@if [ "$@" = "SSDResNet34" ]; then \
-		echo "Building special variants for SSDResNet34..."; \
+		echo "Building only-CPU (baseline) and only-NMC variants for SSDResNet34..."; \
 		$(CC) $(CFLAGS) $(INC) $(THREADS) $(CCFLAGS) -DCNM -DBASELINE $(STATS) -Wall -DSSDRESNET34 models/$@.cpp -o ${CPP_APPS}/$@_baseline_$(SUFFIX)$(STATS_SUFFIX) $(LDFLAGS); \
-		$(CC) $(CFLAGS) $(INC) $(THREADS) $(CCFLAGS) -DCNM $(STATS) -Wall -DSSDRESNET34 models/$@.cpp -o ${CPP_APPS}/$@_cnm_$(SUFFIX)$(STATS_SUFFIX) $(LDFLAGS); \
-		$(CC) $(CFLAGS) $(INC) $(THREADS) $(CCFLAGS) -DCNM -DBASELINE -DSTATS -Wall -DSSDRESNET34 models/$@.cpp -o ${CPP_APPS}/$@_baseline_$(SUFFIX)stats $(LDFLAGS); \
-		$(CC) $(CFLAGS) $(INC) $(THREADS) $(CCFLAGS) -DCNM -DSTATS -Wall -DSSDRESNET34 models/$@.cpp -o ${CPP_APPS}/$@_cnm_$(SUFFIX)stats $(LDFLAGS); \
+		$(CC) $(CFLAGS) $(INC) $(THREADS) $(CCFLAGS) -DCNM $(STATS) -Wall -DSSDRESNET34 models/$@.cpp -o ${CPP_APPS}/$@_nmc_$(SUFFIX)$(STATS_SUFFIX) $(LDFLAGS); \
 	else \
 		echo "Building standard target $@..."; \
 		$(CC) $(CFLAGS) $(INC) $(THREADS) $(CCFLAGS) -DCNM $(STATS) -Wall -D$(shell echo '$@' | tr '[:lower:]' '[:upper:]') models/$@.cpp -o ${CPP_APPS}/$@_$(SUFFIX)$(STATS_SUFFIX) $(LDFLAGS); \

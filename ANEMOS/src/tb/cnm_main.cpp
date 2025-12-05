@@ -86,12 +86,11 @@ int sc_main(int argc, char *argv[]) {
             SC_DO_NOTHING);
     sc_report_handler::set_actions (SC_WARNING, SC_DO_NOTHING);
 
-    sc_trace_file *tracefile;
 #if !(GEM5)
-        tracefile = sc_create_vcd_trace_file("loops2049");
-#endif
+    sc_trace_file *tracefile;
+    tracefile = sc_create_vcd_trace_file("pch_wave");
 
-sc_trace(tracefile, clk, "clk");
+    sc_trace(tracefile, clk, "clk");
     sc_trace(tracefile, rst, "rst");
     sc_trace(tracefile, RD[0], "RD");
     sc_trace(tracefile, WR[0], "WR");
@@ -148,10 +147,13 @@ sc_trace(tracefile, clk, "clk");
         sc_trace(tracefile, dut.imc_pchs[0]->imc_cores[i]->fpu_add_in2_sel, "fpu_add_in2_sel");
         sc_trace(tracefile, dut.imc_pchs[0]->imc_cores[i]->fpu_out[0], "fpu_out");
     }
+#endif
 
     sc_start();
 
+#if !(GEM5)
     sc_close_vcd_trace_file(tracefile);
+#endif
 
     return 0;
 }

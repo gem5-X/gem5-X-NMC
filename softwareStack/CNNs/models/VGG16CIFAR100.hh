@@ -17,7 +17,7 @@ int layer_num = 0;
 conv_layer_args conv1 = conv_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     true,               // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -41,7 +41,7 @@ conv_layer_args conv1 = conv_layer_args(
 conv_layer_args conv2 = conv_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -65,7 +65,7 @@ conv_layer_args conv2 = conv_layer_args(
 pool_layer_args pool1 = pool_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -84,7 +84,7 @@ pool_layer_args pool1 = pool_layer_args(
 conv_layer_args conv3 = conv_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -108,7 +108,7 @@ conv_layer_args conv3 = conv_layer_args(
 conv_layer_args conv4 = conv_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -132,7 +132,7 @@ conv_layer_args conv4 = conv_layer_args(
 pool_layer_args pool2 = pool_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -151,7 +151,7 @@ pool_layer_args pool2 = pool_layer_args(
 conv_layer_args conv5 = conv_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -175,7 +175,7 @@ conv_layer_args conv5 = conv_layer_args(
 conv_layer_args conv6 = conv_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -199,7 +199,7 @@ conv_layer_args conv6 = conv_layer_args(
 conv_layer_args conv7 = conv_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -223,7 +223,7 @@ conv_layer_args conv7 = conv_layer_args(
 pool_layer_args pool3 = pool_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -242,7 +242,7 @@ pool_layer_args pool3 = pool_layer_args(
 conv_layer_args conv8 = conv_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -266,7 +266,7 @@ conv_layer_args conv8 = conv_layer_args(
 conv_layer_args conv9 = conv_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -290,7 +290,7 @@ conv_layer_args conv9 = conv_layer_args(
 conv_layer_args conv10 = conv_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -314,7 +314,7 @@ conv_layer_args conv10 = conv_layer_args(
 pool_layer_args pool4 = pool_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -333,7 +333,7 @@ pool_layer_args pool4 = pool_layer_args(
 conv_layer_args conv11 = conv_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -357,7 +357,7 @@ conv_layer_args conv11 = conv_layer_args(
 conv_layer_args conv12 = conv_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -381,7 +381,7 @@ conv_layer_args conv12 = conv_layer_args(
 conv_layer_args conv13 = conv_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -405,7 +405,7 @@ conv_layer_args conv13 = conv_layer_args(
 pool_layer_args pool5 = pool_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -424,7 +424,7 @@ pool_layer_args pool5 = pool_layer_args(
 flatten_layer_args flatten1 = flatten_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -438,7 +438,7 @@ flatten_layer_args flatten1 = flatten_layer_args(
 fc_layer_args dense1 = fc_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     false,              // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.
@@ -456,7 +456,7 @@ fc_layer_args dense1 = fc_layer_args(
 fc_layer_args dense2 = fc_layer_args(
     layer_num++,        // Layer number.
     T_x,                // Number of inferences.
-    0,                  // Assigned thread.
+    
     false,              // Is first layer.
     true,               // Is last layer.
     SINGLE_BUFFER_TYPE, // Buffer type.

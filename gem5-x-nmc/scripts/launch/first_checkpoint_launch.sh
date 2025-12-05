@@ -1,22 +1,24 @@
  #!/bin/bash
 
-kernel_name=$1
+if [ $# -lt 1 ]; then
+    echo "Usage: sh $0 <name_of_gem5_build>"
+    echo "Example: sh $0 HBM"
+    exit 1
+fi
+
+# echo "SCRIPT ARG = '$1'"
+# sed -i "s|nmc-cores|nmc-cores-$1|g" /CrossLayerNMC/gem5-x-nmc/src/mem/nmccores.cc
+
+kernel_name=first_checkpoint
 echo "$kernel_name launching on gem5"
 
 cd /CrossLayerNMC/gem5-x-nmc/
-#singularity instance start /home/kodra/srv11.sif "$kernel_name"
 
 output_dir="/CrossLayerNMC/gem5-x-nmc/gem5_outputs/$kernel_name"
 
 mkdir "$output_dir"
-ln -s /CrossLayerNMC/gem5-x-nmc/gem5_outputs/cpt.6553149866000 /CrossLayerNMC/gem5-x-nmc/gem5_outputs/$kernel_name/
 
-# Uncomment in case gem5 needs to be rebuilt
-# singularity exec instance://"$kernel_name" 
-scons build/ARM/gem5.fast -j64
-
-#singularity exec instance://"$kernel_name" 
-./build/ARM/gem5.fast \
+./build/ARM/gem5_$1.fast \
 --remote-gdb-port=0 \
 -d /CrossLayerNMC/gem5-x-nmc/gem5_outputs/"$kernel_name" \
 --stats-file="${kernel_name}_stats.txt" \
@@ -38,12 +40,9 @@ configs/example/fs.py \
 --mem-ranks=4 \
 --mem-size=4GB \
 --sys-clock=1600MHz \
---cpu-type=MinorCPU \
---workload-automation-vio=/CrossLayerNMC/gem5-x-nmc/ \
+--cpu-type=AtomicSimpleCPU \
+--workload-automation-vio=/CrossLayerNMC/softwareStack/Applications \
 --nmc \
 --nmc_mem_type=Ramulator \
 --ramulator-config=/CrossLayerNMC/gem5-x-nmc/ext/ramulator/Ramulator/configs/HBM_AB-config.cfg \
---nmc_mem_size=16GB \
--r 1
-
-#singularity instance stop "$kernel_name"
+--nmc_mem_size=16GB

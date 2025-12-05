@@ -11,7 +11,7 @@ echo $GEM5_X_NMC
 cd $GEM5_X_NMC
 
 # Update the path to the executable
-sed -i "s|/CrossLayerNMC/gem5-x-nmc/ext/NMCcores/nmc-cores|$1|g" src/mem/nmccores.cc
+sed -i "s|nmc-cores|nmc-cores-$2|g" /CrossLayerNMC/gem5-x-nmc/src/mem/nmccores.cc
 
 # Build gem5-x-nmc
 # The name of the build MUST be gem5.fast. 
