@@ -64,7 +64,7 @@ source scripts/setUpFramework.sh <name_of_docker_image>
 ```
 
 ### 2. Generating NMC Architecture Models (executables)
-The generated docker image can now be used to build the executables of the NMC Architecture models. In the [definition file of ANEMOS, defs.h](./ANEMOS/src/defs.h) you can change the parameters of the design such as: type of DRAM or number of entries in the registers. For generating the NMC cores executable for **full system simulation**, set in [defs.h](./ANEMOS/src/defs.h) GEM5  1. 
+The generated docker image can now be used to build the executables of the NMC Architecture models. In the [definition file of ANEMOS, defs.h](./ANEMOS/src/defs.h) you can change the parameters of the design such as: type of DRAM or number of entries in the registers. For generating the NMC cores executables for **full system simulation**, set in [defs.h](./ANEMOS/src/defs.h) GEM5  1. 
 
 To generate the executables for each DRAM type, and for the default values of the other architecture parameters in [defs.h](./ANEMOS/src/defs.h), you can run the commnad: 
 ```
@@ -78,12 +78,12 @@ For your own customized designs you can follow the same flow as shown in the scr
 
 ❗❗❗ **Make sure to rebuild the docker image to include NMC-cores executable files for each DRAM type in the container.** ❗❗❗
 
-### 3. Building gem5-x-nmc with NMC integrated
+### 3. Building gem5-x-nmc with NMC cores integrated within
 
-For building a gem5-x-nmc instance, after copying the executables generated above in the correct folder run the following command inside the docker container (updated).
+For building a gem5-x-nmc instance, after copying the executables generated above in the correct folder run the following command inside the (updated) docker container.
 
 ```
-docker run --name <container_name \
+docker run --name <container_name> \
     -it --rm \
     -v /full_host_path/CrossLayerNMC/gem5-x-nmc/build/ARM/:/CrossLayerNMC/gem5-x-nmc/build/ARM \
     <image_name> \
@@ -99,7 +99,7 @@ docker run --name <container_name> \
 ```
 ❗❗❗ **Make sure to rebuild the docker image to include the gem5-x-nmc builds for each DRAM type in the container.** ❗❗❗
 
-### Building applications 
+### 4. Building applications 
 ```
 docker run --name <container_name> \
 -it --rm \
@@ -109,7 +109,7 @@ bash -c "cd /CrossLayerNMC/softwareStack/CNNs && make <target> SUFFIX=<optional>
 ```
 ❗❗❗ **Make sure to rebuild the docker image to include the CNN C++ applications in the container.** ❗❗❗
 
-### Running simulations with the generated applications
+### 5. Running simulations with the generated applications
 For running simulations using the full-system simulator gem5-x-nmc, you need two active terminals. The first terminal is used for launching the gem5-x-nmc simulation in an interactive mode, from where we will retrieve the port where we need to connect for accessing the simulated full-system. The second terminal is used for connecting to the terminal. 
 
 In the first screen run the container, that will be used for the launch of the gem5-x-nmc simulation using the command:
@@ -130,15 +130,13 @@ docker exec -it <container_name> bash -c "cd /CrossLayerNMC/gem5-x-nmc/util/term
 #### First Checkpoint
 This step needs to be done **ONLY ONCE**.
 
-In order to run simulations with statistics, you need the MinorCPU type of CPU, which is slower than AtomicSimpleCPU. In order to bypass the needed booting time, we initially do a launch using AtomicSimpleCPU and there we do a checkpoint which will be used in all of the next simulations, as explained in the next section. 
-
-To set up the checkpoint, in the first terminal where the docker container is running, execute the following commad to boot the full-system: 
+In the first terminal where the docker container is running, execute the following commad to boot the full-system: 
 
 ```
 sh gem5-x-cnm/sripts/launch/first_checkpoint_launch.sh
 ```
 
-During the full-system (FS) boot in gem5-x-nmc, a checkpoint is automatically created once the OS finishes booting and the m5 terminal becomes available in the second terminal. This initial boot runs on the AtomicSimpleCPU, so no timing information is collected yet. After this point, you can switch to a more accurate in-order CPU model (MinorCPU) for timing simulations.
+During the full-system (FS) boot in gem5-x-nmc, a checkpoint is automatically created once the OS finishes booting and the m5 terminal becomes available in the second terminal. This initial boot runs on the AtomicSimpleCPU, so no timing information is collected yet. This checkpoint will be used for future simulations where you can switch to a more accurate in-order CPU model (MinorCPU) for timing simulations.
 
 If the simulation is still running after the boot in the second terminal, where we are connected to the port of the gem5-x-nmc, you can safely exit it from the terminal by using:
 
@@ -151,7 +149,7 @@ In the folder /CrossLayerNMC/gem5-x-nmc/gem5_outputs/first_checkpoint in the con
 
 ❗❗❗ **Including the checkpoint in future simulations.** ❗❗❗
 
-- ❗ Make sure to copy that folder on the host WITHOUT changing its name and rebuild the docker image to include it in the future simulations containers.
+- ❗ Make sure to copy the checkpoint folder on the host WITHOUT changing its name and rebuild the docker image to include it in the future simulations containers.
 - ❗ Apply the patch below to pass the path of the checkpoint to the launching scripts.
 ```
 sh pass_checkpoint_path.sh <container_path_to_checkpoint>
@@ -166,10 +164,14 @@ After having rebuilt the docker image, run the docker in the first terminal as e
 sh gem5-x-nmc/scripts/launch/docker_launch.sh <simulation_name>
 ```
 
-In the second terminal, after connecting to the port as shown above, firstly mount the shared folder where the Applications are located using the following command:
+In the second terminal, after connecting to the port as shown above, firstly mount the shared folder where the Applications are located and then enter the folder using the following commands:
 
 ```
 sh mount.sh /CrossLayerNMC/softwareStack/Applications
+cd /mnt
 ```
 
-In that terminal you can execute the applications generated using the softwareStack support as explained above. 
+In that terminal you can execute the applications generated using the softwareStack support.
+```
+./<name_of_application>
+``` 
