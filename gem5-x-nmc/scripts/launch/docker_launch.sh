@@ -39,7 +39,7 @@ configs/example/fs.py \
 --mem-size=4GB \
 --sys-clock=1600MHz \
 --cpu-type=MinorCPU \
---workload-automation-vio=/CrossLayerNMC/gem5-x-nmc/ \
+--workload-automation-vio=/CrossLayerNMC/softwareStack/Applications \
 --nmc \
 --nmc_mem_type=Ramulator \
 --ramulator-config=/CrossLayerNMC/gem5-x-nmc/ext/ramulator/Ramulator/configs/HBM_AB-config.cfg \

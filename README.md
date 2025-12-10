@@ -42,11 +42,11 @@ For performing Area, Energy and NMC-only cycle-accurate simulations follow the o
 - 📁 [**scripts**:](./scripts/) Bash scripts to set up and utilize the framework for NMC explorations. 
 
 - 📁 [**Software Stack**:](./softwareStack/) Software support for generating CNN applications, deployable on NMC architectures, integrated on a FS simulator.
-    - 📁 [**Applications**:](./softwareStack/Applications): Folder for storing compiled full CNN applications.
-    - 📁 [**CNNs**:](./softwareStack/CNNs): CNN C++ models definitions
-    - 📁 [**eigen**:](./softwareStack/eigen): Open-source library for optimized C++ arithmetic and data structures
-    - 📁 [**NMClib**:](./softwareStack/NMClib): Library for mapping kernels and generating the DRAM commands for NMC execution.
-    - 📁 [**tinytensorlib**:](./softwareStack/tinytensorlib): Extended library from [TinyTensorLib](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10622095), supporting CPU and NMC execution of full inferences.
+    - 📁 [**Applications**:](./softwareStack/Applications) Folder for storing compiled full CNN applications.
+    - 📁 [**CNNs**:](./softwareStack/CNNs) CNN C++ models definitions
+    - 📁 [**eigen**:](./softwareStack/eigen) Open-source library for optimized C++ arithmetic and data structures
+    - 📁 [**NMClib**:](./softwareStack/NMClib) Library for mapping kernels and generating the DRAM commands for NMC execution.
+    - 📁 [**tinytensorlib**:](./softwareStack/tinytensorlib) Extended library from [TinyTensorLib](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10622095), supporting CPU and NMC execution of full inferences.
 
 - 📄 Dockerfile: Container used for compiling NMC cores executable instances, applications to be executed on gem5-x-nmc and gem5-x-nmc simulation.
 
@@ -62,9 +62,10 @@ To set up the framework, set the paths of the folders, build the docker image an
 ```
 source scripts/setUpFramework.sh <name_of_docker_image>
 ```
+❗❗❗ **Make sure to rebuild the docker image after each time new files are generated throughout the following steps.** ❗❗❗
 
 ### 2. Generating NMC Architecture Models (executables)
-The generated docker image can now be used to build the executables of the NMC Architecture models. In the [definition file of ANEMOS, defs.h](./ANEMOS/src/defs.h) you can change the parameters of the design such as: type of DRAM or number of entries in the registers. For generating the NMC cores executables for **full system simulation**, set in [defs.h](./ANEMOS/src/defs.h) GEM5  1. 
+Use the docker image to build the executables of the NMC Architecture models. In the [definition file of ANEMOS, defs.h](./ANEMOS/src/defs.h) you can change the parameters of the design such as: type of DRAM or number of entries in the registers. For generating the NMC cores executables for **full system simulation**, set in [defs.h](./ANEMOS/src/defs.h) GEM5  1. 
 
 To generate the executables for each DRAM type, and for the default values of the other architecture parameters in [defs.h](./ANEMOS/src/defs.h), you can run the commnad: 
 ```
@@ -76,11 +77,11 @@ bash -c "sh scripts/build_NMC_cores.sh"
 ```
 For your own customized designs you can follow the same flow as shown in the script, but ensure that the changes in the [defs.h](./ANEMOS/src/defs.h) file are reflected in the docker image being used.
 
-❗❗❗ **Make sure to rebuild the docker image to include NMC-cores executable files for each DRAM type in the container.** ❗❗❗
+<!-- ❗❗❗ **Make sure to rebuild the docker image to include NMC-cores executable files for each DRAM type in the container.** ❗❗❗ -->
 
-### 3. Building gem5-x-nmc with NMC cores integrated within
+### 3. Building gem5-x-nmc (FS simulator interfaced with NMC models)
 
-For building a gem5-x-nmc instance, after copying the executables generated above in the correct folder run the following command inside the (updated) docker container.
+For building a gem5-x-nmc instance, run the following command inside the (updated) docker container.
 
 ```
 docker run --name <container_name> \
@@ -97,9 +98,10 @@ docker run --name <container_name> \
     <image_name> \
     bash -c "sh scripts/build_gem5.sh /CrossLayerNMC/gem5-x-nmc/ext/NMCcores/nmc-cores-HBM HBM"
 ```
-❗❗❗ **Make sure to rebuild the docker image to include the gem5-x-nmc builds for each DRAM type in the container.** ❗❗❗
+<!-- ❗❗❗ **Make sure to rebuild the docker image to include the gem5-x-nmc builds for each DRAM type in the container.** ❗❗❗ -->
 
 ### 4. Building applications 
+We provide 4 CNN models, and to compile them use the following command.
 ```
 docker run --name <container_name> \
 -it --rm \
@@ -107,12 +109,14 @@ docker run --name <container_name> \
 <image_name> \
 bash -c "cd /CrossLayerNMC/softwareStack/CNNs && make <target> SUFFIX=<optional>"
 ```
-❗❗❗ **Make sure to rebuild the docker image to include the CNN C++ applications in the container.** ❗❗❗
+You can create new models by providing the network definitions as header files, and using the functions in [tinytensorlib](./softwareStack/tinytensorlib) to implement the layers for both CPU and NMC execution. Update the Makefile to include the new targets. 
+
+<!-- ❗❗❗ **Make sure to rebuild the docker image to include the CNN C++ applications in the container.** ❗❗❗ -->
 
 ### 5. Running simulations with the generated applications
 For running simulations using the full-system simulator gem5-x-nmc, you need two active terminals. The first terminal is used for launching the gem5-x-nmc simulation in an interactive mode, from where we will retrieve the port where we need to connect for accessing the simulated full-system. The second terminal is used for connecting to the terminal. 
 
-In the first screen run the container, that will be used for the launch of the gem5-x-nmc simulation using the command:
+In the first terminal run the container, that will be used for the launch of the gem5-x-nmc simulation using the command:
 
 ```
 docker run -it --rm --name <container_name> \
@@ -128,7 +132,9 @@ docker exec -it <container_name> bash -c "cd /CrossLayerNMC/gem5-x-nmc/util/term
 ```
 
 #### First Checkpoint
-This step needs to be done **ONLY ONCE**.
+This step needs to be done **ONLY ONCE** when using our provided scripts and flow. 
+
+*If you use a customized design, ensure that any modifications to the gem5-x system configuration do not break checkpoint restoration.* 
 
 In the first terminal where the docker container is running, execute the following commad to boot the full-system: 
 
@@ -158,7 +164,7 @@ sh pass_checkpoint_path.sh <container_path_to_checkpoint>
 
 #### General simulation
 
-After having rebuilt the docker image, run the docker in the first terminal as explained above and run in that terminal the following script: 
+After having rebuilt the docker image, run the docker in the first terminal as explained above and there run the following script: 
 
 ```
 sh gem5-x-nmc/scripts/launch/docker_launch.sh <simulation_name>
@@ -171,7 +177,8 @@ sh mount.sh /CrossLayerNMC/softwareStack/Applications
 cd /mnt
 ```
 
-In that terminal you can execute the applications generated using the softwareStack support.
+In that terminal you can see and execute the applications generated via the softwareStack support.
 ```
+ls
 ./<name_of_application>
 ``` 

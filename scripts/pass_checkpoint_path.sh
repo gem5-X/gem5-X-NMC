@@ -6,4 +6,4 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-sed -i "s|/CrossLayerNMC/gem5-x-nmc/gem5_outputs/cpt.number|$1|g" /CrossLayerNMC/gem5-x-nmc/scripts_RK/launch/docker_launch.sh
+sed -i "s|/CrossLayerNMC/gem5-x-nmc/gem5_outputs/cpt.number|$1|g" /CrossLayerNMC/gem5-x-nmc/scripts/launch/docker_launch.sh
