@@ -7,7 +7,7 @@ fi
 WORKS for GEM5 (04.12.2025) with actual FS_IMGS path
 # Build and launch gem5 for the first time to create a checkpoint 
 docker run -it --rm --name $1 \
--v $FS_IMGS:/CrossLayerNMC/full_system_images \
+-v $FS_IMGS:/gem5-X-NMC/full_system_images \
 $2
 
 

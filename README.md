@@ -55,7 +55,7 @@ For performing Area, Energy and NMC-only cycle-accurate simulations follow the o
 ### 1. Setting up the framework
 Firstly, full system images are required for being able to launch full system simulation. The ones used by us were obtained through the official [gem5X website](https://github.com/gem5-X/gem5-X).
 
-Once you obtain them, for consistency with the rest of this repository, please store the obtained disks and binaries in a folder named **"full_system_images"**, directly inside the root folder, i.e. CrossLayerNMC.
+Once you obtain them, for consistency with the rest of this repository, please store the obtained disks and binaries in a folder named **"full_system_images"**, directly inside the root folder, i.e. gem5-X-NMC.
 
 To set up the framework, set the paths of the folders, build the docker image and install the needed libraries, run from the root folder of the repository:
 
@@ -71,7 +71,7 @@ To generate the executables for each DRAM type, and for the default values of th
 ```
 docker run --name <container_name> \
 -it --rm \
--v /full_host_path/CrossLayerNMC/gem5-x-nmc/ext/NMCcores/:/CrossLayerNMC/gem5-x-nmc/ext/NMCcores/ \
+-v /full_host_path/gem5-X-NMC/gem5-x-nmc/ext/NMCcores/:/gem5-X-NMC/gem5-x-nmc/ext/NMCcores/ \
 <image_name> \
 bash -c "sh scripts/build_NMC_cores.sh"
 ```
@@ -86,7 +86,7 @@ For building a gem5-x-nmc instance, run the following command inside the (update
 ```
 docker run --name <container_name> \
     -it --rm \
-    -v /full_host_path/CrossLayerNMC/gem5-x-nmc/build/ARM/:/CrossLayerNMC/gem5-x-nmc/build/ARM \
+    -v /full_host_path/gem5-X-NMC/gem5-x-nmc/build/ARM/:/gem5-X-NMC/gem5-x-nmc/build/ARM \
     <image_name> \
     bash -c "sh scripts/build_gem5.sh <nmc_executable_path> <gem5_build_name>"
 ```
@@ -94,9 +94,9 @@ docker run --name <container_name> \
 ```
 docker run --name <container_name> \
     -it --rm \
-    -v /full_host_path/CrossLayerNMC/gem5-x-nmc/build/ARM/:/CrossLayerNMC/gem5-x-nmc/build/ARM \
+    -v /full_host_path/gem5-X-NMC/gem5-x-nmc/build/ARM/:/gem5-X-NMC/gem5-x-nmc/build/ARM \
     <image_name> \
-    bash -c "sh scripts/build_gem5.sh /CrossLayerNMC/gem5-x-nmc/ext/NMCcores/nmc-cores-HBM HBM"
+    bash -c "sh scripts/build_gem5.sh /gem5-X-NMC/gem5-x-nmc/ext/NMCcores/nmc-cores-HBM HBM"
 ```
 <!-- ❗❗❗ **Make sure to rebuild the docker image to include the gem5-x-nmc builds for each DRAM type in the container.** ❗❗❗ -->
 
@@ -105,9 +105,9 @@ We provide 4 CNN models, and to compile them use the following command.
 ```
 docker run --name <container_name> \
 -it --rm \
--v /full_host_path/CrossLayerNMC/softwareStack/Applications:/CrossLayerNMC/softwareStack/Applications \
+-v /full_host_path/gem5-X-NMC/softwareStack/Applications:/gem5-X-NMC/softwareStack/Applications \
 <image_name> \
-bash -c "cd /CrossLayerNMC/softwareStack/CNNs && make <target> SUFFIX=<optional>"
+bash -c "cd /gem5-X-NMC/softwareStack/CNNs && make <target> SUFFIX=<optional>"
 ```
 You can create new models by providing the network definitions as header files, and using the functions in [tinytensorlib](./softwareStack/tinytensorlib) to implement the layers for both CPU and NMC execution. Update the Makefile to include the new targets. 
 
@@ -120,7 +120,7 @@ In the first terminal run the container, that will be used for the launch of the
 
 ```
 docker run -it --rm --name <container_name> \
--v /full_host_path/CrossLayerNMC/full_system_images:/CrossLayerNMC/full_system_images \
+-v /full_host_path/gem5-X-NMC/full_system_images:/gem5-X-NMC/full_system_images \
 <image_name>
 ```
 
@@ -128,7 +128,7 @@ In the first terminal, after launching gem5-x-nmc simulation (explained below) y
 
 In the second terminal run the following command to connect to the port, using as container name the same as the one above:
 ```
-docker exec -it <container_name> bash -c "cd /CrossLayerNMC/gem5-x-nmc/util/term && ./m5term 127.0.0.1 <port_number>"
+docker exec -it <container_name> bash -c "cd /gem5-X-NMC/gem5-x-nmc/util/term && ./m5term 127.0.0.1 <port_number>"
 ```
 
 #### First Checkpoint
@@ -150,7 +150,7 @@ If the simulation is still running after the boot in the second terminal, where 
 m5 exit
 ```
 
-In the folder /CrossLayerNMC/gem5-x-nmc/gem5_outputs/first_checkpoint in the container you will see the checkpoint as a  folder named "cpt.number", where number is the tick number where the checkpoint was done.  
+In the folder /gem5-X-NMC/gem5-x-nmc/gem5_outputs/first_checkpoint in the container you will see the checkpoint as a  folder named "cpt.number", where number is the tick number where the checkpoint was done.  
 
 
 ❗❗❗ **Including the checkpoint in future simulations.** ❗❗❗
@@ -173,7 +173,7 @@ sh gem5-x-nmc/scripts/launch/docker_launch.sh <simulation_name>
 In the second terminal, after connecting to the port as shown above, firstly mount the shared folder where the Applications are located and then enter the folder using the following commands:
 
 ```
-sh mount.sh /CrossLayerNMC/softwareStack/Applications
+sh mount.sh /gem5-X-NMC/softwareStack/Applications
 cd /mnt
 ```
 

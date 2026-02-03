@@ -1,3 +1,10 @@
+ /*
+ * Copyright EPFL 2024
+ * Riselda Kodra
+ * Rafael Medina Morillas
+ *
+ */
+
 #include "mem/nmccores.hh"
 #include <iostream>
 //#include <libexplain/execvp.h>
@@ -77,8 +84,8 @@ NMCcores::NMCcores(const Params *params):
     // TODO automate this
     if (pid == 0) {
         std::string scPath = simout.resolve("SystemC" + gem5_pid_string + ".results");
-        execl("/CrossLayerNMC/gem5-x-nmc/ext/NMCcores/nmc-cores", 
-              "/CrossLayerNMC/gem5-x-nmc/ext/NMCcores/nmc-cores", scPath.c_str(), gem5_pid_string.c_str(),  nullptr);
+        execl("/gem5-X-NMC/gem5-x-nmc/ext/NMCcores/nmc-cores", 
+              "/gem5-X-NMC/gem5-x-nmc/ext/NMCcores/nmc-cores", scPath.c_str(), gem5_pid_string.c_str(),  nullptr);
         std::cout << "error with execl" << std::endl;
     } else {
         std::cout << "==============================================================================================================" << std::endl;

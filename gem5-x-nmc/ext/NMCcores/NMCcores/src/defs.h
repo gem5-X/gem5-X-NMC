@@ -1,4 +1,7 @@
  /*
+ * Copyright EPFL 2023
+ * Rafael Medina Morillas
+ * Riselda Kodra
  *
  * Defines for configuring the design.
  *

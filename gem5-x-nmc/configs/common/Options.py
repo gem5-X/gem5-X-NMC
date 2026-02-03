@@ -37,7 +37,9 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 # Authors: Lisa Hsu
-
+#
+#
+# Updates for NMC: Riselda Kodra
 import m5
 from m5.defines import buildEnv
 from m5.objects import *

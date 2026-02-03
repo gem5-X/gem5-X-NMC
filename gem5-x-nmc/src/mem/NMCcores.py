@@ -1,5 +1,11 @@
+#  /*
+#  * Copyright EPFL 2024
+#  * Riselda Kodra
+#  * Rafael Medina Morillas
+#  *
+#  */
+
 from m5.SimObject import SimObject
-# TODO Idk if i should say sth here
 # A wrapper for Near Memory Computing Cores
 class NMCcores(SimObject):
     type = 'NMCcores'

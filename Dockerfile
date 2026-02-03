@@ -4,12 +4,12 @@ FROM ubuntu:16.04
 SHELL ["/bin/bash", "-c"] 
 
 # Environment variables
-ENV CROSSLAYER_FW=/CrossLayerNMC
-ENV ANEMOS=$CROSSLAYER_FW/ANEMOS
-ENV SOFTWARELIB=$CROSSLAYER_FW/softwareStack
-ENV GEM5_X_NMC=$CROSSLAYER_FW/gem5-x-nmc
-ENV RAMULATOR_DIR=$CROSSLAYER_FW/ramulator  
-ENV SYSTEMC_HOME=$CROSSLAYER_FW/systemc 
+ENV GEM5XNMC_FW=/gem5-X-NMC
+ENV ANEMOS=$GEM5XNMC_FW/ANEMOS
+ENV SOFTWARELIB=$GEM5XNMC_FW/softwareStack
+ENV GEM5_X_NMC=$GEM5XNMC_FW/gem5-x-nmc
+ENV RAMULATOR_DIR=$GEM5XNMC_FW/ramulator  
+ENV SYSTEMC_HOME=$GEM5XNMC_FW/systemc 
 ENV CPP_APPS=$SOFTWARELIB/Applications
 
 # Optimize the mirrors for a fast APT image
@@ -33,24 +33,24 @@ RUN --mount=type=cache,target=/var/cache/apt \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Copy the project files to the container
-COPY . /CrossLayerNMC
+COPY . /gem5-X-NMC
 
 # Build the m5 library
 # RUN make -C cnm-framework/pim-cores/cnmlib/util/m5 --file=Makefile.aarch64
-WORKDIR /CrossLayerNMC/gem5-x-nmc/util/m5
+WORKDIR /gem5-X-NMC/gem5-x-nmc/util/m5
 RUN make --file=Makefile.aarch64
 
-RUN chmod +x /CrossLayerNMC/scripts/install_systemC.sh
-RUN /CrossLayerNMC/scripts/install_systemC.sh
+RUN chmod +x /gem5-X-NMC/scripts/install_systemC.sh
+RUN /gem5-X-NMC/scripts/install_systemC.sh
 
 ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${SYSTEMC_HOME}/lib"
 # ENV SYSTEMC_HOME="${SYSTEMC_HOME}:${SYSTEMC_HOME}/include"
 
-RUN chmod +x /CrossLayerNMC/scripts/install_ramulator.sh
-RUN /CrossLayerNMC/scripts/install_ramulator.sh
+RUN chmod +x /gem5-X-NMC/scripts/install_ramulator.sh
+RUN /gem5-X-NMC/scripts/install_ramulator.sh
 
-# RUN chmod +x /CrossLayerNMC/scripts/build_gem5.sh
-# RUN /CrossLayerNMC/scripts/build_gem5.sh
+# RUN chmod +x /gem5-X-NMC/scripts/build_gem5.sh
+# RUN /gem5-X-NMC/scripts/build_gem5.sh
 
 # Set working directory
-WORKDIR /CrossLayerNMC
+WORKDIR /gem5-X-NMC

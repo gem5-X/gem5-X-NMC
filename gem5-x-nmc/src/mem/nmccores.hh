@@ -1,3 +1,10 @@
+ /*
+ * Copyright EPFL 2024
+ * Riselda Kodra
+ * Rafael Medina Morillas
+ *
+ */
+
 #ifndef __NMCCORES_HH__
 #define __NMCCORES_HH__
 

@@ -1,4 +1,6 @@
  /*
+ * Copyright EPFL 2024
+ * Rafael Medina Morillas
  *
  * Definition of the CnM opcodes and instruction formats
  *
