@@ -10,4 +10,4 @@ export SYSTEMC_HOME=$CROSSLAYER_FW/systemc
 export CPP_APPS=$SOFTWARELIB/Applications
 export FS_IMGS=$CROSSLAYER_FW/full_system_images
 
-echo "CrossLayerFW: $CROSSLAYER_FW"
+echo "Framework path: $CROSSLAYER_FW"

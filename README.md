@@ -1,4 +1,4 @@
-# Cross-Layer NMC Exporation Framework
+# Gem5-X-NMC Exporation Framework
  This repository contains the framework that enables the exploration of Near Memory Computing (NMC) designs from hardware to system level.
 
 
