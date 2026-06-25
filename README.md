@@ -4,7 +4,7 @@
 
 The purpose of the framework is described in the following paper:
 >R. Kodra et al.
->"[**Crossing the Layers and Dotting the Details:Systematic Exploration of Near-Memory Computing**](https://infoscience.epfl.ch/entities/publication/12a2af3a-cb52-42f7-be37-c8d410c3a931)".
+>"[**Crossing the Layers and Dotting the Details:Systematic Exploration of Near-Memory Computing**](https://ieeexplore.ieee.org/document/11534743)".
 >In ISQED, April 2026.
 
 ## Dependencies
